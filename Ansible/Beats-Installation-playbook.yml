@@ -1,0 +1,48 @@
+---
+ - name: metricbeat && filebeat
+   hosts: webservers
+   become: true
+   tasks:
+   - name: Download metricbeat deb
+     command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-amd64.deb
+
+   - name: Download firebeat deb
+     command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+
+   - name: Install metricbeat deb file
+     command: dpkg -i metricbeat-7.4.0-amd64.deb
+
+   - name: Install filebeat deb file
+     command: dpkg -i filebeat-7.4.0-amd64.deb
+
+   - name: Copy Metricbeat configuration file
+     copy:
+       owner: root
+       src: /etc/ansible/metricbeat_configuration.yml
+       dest: /etc/metricbeat/metricbeat.yml
+       mode: '0644'
+
+   - name: Copy Filebeat configuration file
+     copy:
+       owner: root
+       src: /etc/ansible/filebeat-configuration.yml
+       dest: /etc/filebeat/filebeat.yml
+       mode: '0644'
+
+   - name: Run metricbeat modules
+     command: metricbeat modules enable docker
+
+   - name: Run filebeat commands
+     command: filebeat modules enable system
+
+   - name: metricbeat setup
+     command: metricbeat setup
+
+   - name: filebeat setup
+     command: filebeat setup
+
+   - name: start metricbeat logs
+     command: service metricbeat start
+
+   - name: start filebeat logs
+     command: service filebeat start

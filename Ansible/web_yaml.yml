@@ -1,0 +1,34 @@
+---
+  - name: Web_YAML_1
+    hosts: webservers
+    become: true
+    tasks:
+
+    - name: Install docker.io
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+
+    - name: Install python3-pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install docker with pip
+      pip:
+        name: docker
+        state: present
+
+    - name: Install DVWA with ansible module
+      docker_container:
+        name: dvwa
+        image: cyberxsecurity/dvwa
+        state: started
+        restart_policy: always
+        published_ports: 80:80
+        restart: yes
+
+    - name: systemd
+      systemd:
+        state: restarted

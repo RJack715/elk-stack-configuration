@@ -1,0 +1,40 @@
+---
+  - name: elk-yaml
+    hosts: elk
+    remote_user: azdmin
+    become: True
+    tasks:
+
+    - name: Set vm.max_map_count to 262144
+      sysctl:
+        name: vm.max_map_count
+        value: '262144'
+        state: present
+        reload: yes
+
+    - name: Install docker.io
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+
+    - name: Install python3-pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install docker with pip
+      pip:
+        name: docker
+        state: present
+
+    - name: Install docker container sebp/elk:761
+      docker_container:
+        name: elk
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports:
+          - 5601:5601
+          - 9200:9200
+          - 5044:5044
