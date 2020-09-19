@@ -112,7 +112,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![Image of the newly created docker container](https://rice.bootcampcontent.com/RJ715/elk-stack-configuration/blob/master/Linux/ELK_Container.PNG)
+![Image of the newly created docker container](https://github.com/RJack715/elk-stack-configuration/blob/master/Linux/ELK_Container.PNG)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -136,7 +136,7 @@ SSH into the control node and follow the steps below:
 
 ### Specific Commands
 
-[Beats installation file](https://rice.bootcampcontent.com/RJ715/elk-stack-configuration/blob/master/Ansible/Beats-Installation-playbook.yml)
+[Beats installation file](https://github.com/RJack715/elk-stack-configuration/blob/master/Ansible/Beats-Installation-playbook.yml)
 
 ssh azdmin@104.214.99.248
 - ssh to Jump-Box-Provisioner
@@ -158,6 +158,6 @@ nano /etc/ansible/hosts
 ssh azdmin@10.1.0.4
 - ssh connection inside the ansible container to access the ELK server
 
-(https://rice.bootcampcontent.com/RJ715/elk-stack-configuration/blob/master/Linux/filebeat_configuration.yml)
-(https://rice.bootcampcontent.com/RJ715/elk-stack-configuration/blob/master/Linux/metricbeat_configuration.yml)
+(https://github.com/RJack715/elk-stack-configuration/blob/master/Linux/filebeat_configuration.yml)
+(https://github.com/RJack715/elk-stack-configuration/blob/master/Linux/metricbeat_configuration.yml)
 - configuration files to copy onto the ELK server and the VMs with updated IP address inside
